@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ErrorMonsterLogic : EnemyBaseUnit
+public class ErrorMonsterLogic : CharacterControl
 {
     public int bulletNumber;
     public float bulletSpeed;
@@ -25,8 +25,6 @@ public class ErrorMonsterLogic : EnemyBaseUnit
         Hiding,
         Transforming,
     }
-
-
     void Start()
     {
         m_player = GameObject.FindGameObjectWithTag("Player");
@@ -96,26 +94,6 @@ public class ErrorMonsterLogic : EnemyBaseUnit
             bullet.transform.parent = this.transform;
             bullet.transform.position = this.transform.position;
             bullet.transform.eulerAngles = new Vector3(.0f, .0f, 360.0f / bulletNumber * i);
-            #region Former Way
-            //Vector3 dir = -transform.right;
-            //for (int i = 0; i < 8; i++)
-            //{
-
-            //    //bullet.transform.parent = transform;
-            //    Quaternion q = Quaternion.AngleAxis(45 * i, Vector3.forward);
-            //    Vector3 newDir = q * dir;
-
-            //    //Quaternion q2 = Quaternion.LookRotation(newDir);
-
-            //    GameObject bullet = Instantiate(ErrorBullet);
-            //    bullet.transform.rotation = transform.rotation;
-            //    bullet.transform.Rotate(newDir);
-            //    //bullet.transform.rotation = q2;
-            //    //bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.forward * bulletSpeed, ForceMode2D.Impulse);
-            #endregion
         }
-
     }
-
 }
-

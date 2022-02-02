@@ -198,14 +198,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6925862d41df2468b7f313ce62245e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 100
+  currentHP: 100
   movementSpeed_Final: 0
   movementSpeed_Basic: 75
   movementSpeed_Ratio: 1
-  maxHP: 100
-  currentHP: 100
   meleeDamage_Final: 0
   meleeDamage_Basic: 1
   meleeDamage_Ratio: 1
+  rangeDamage_Final: 0
+  rangeDamage_Basic: 1
+  rangeDamage_Ratio: 1
   ShootInterval_Final: 0
   ShootInterval_Basic: 1
   ShootInterval_Ratio: 1
@@ -223,6 +226,7 @@ MonoBehaviour:
   canShoot: 0
   canAttack: 0
   Shooter: {fileID: 0}
+  UltraShooter: {fileID: 0}
   bullet_0: {fileID: 6570642098983685159, guid: f315331d3cb511a4ea9d80b49d0cce90, type: 3}
   bullet_1: {fileID: 6570642098983685159, guid: f315331d3cb511a4ea9d80b49d0cce90, type: 3}
   bullet_2: {fileID: 6570642098983685159, guid: f315331d3cb511a4ea9d80b49d0cce90, type: 3}

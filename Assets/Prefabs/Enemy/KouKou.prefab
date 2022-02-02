@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8680351223105146152}
-  - component: {fileID: 7121408375093991286}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -31,18 +30,6 @@ Transform:
   m_Father: {fileID: 1459256475852565085}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7121408375093991286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207026537148510220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 353030b7ec71a9d48802372ff3284784, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1459256475852565080
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,14 +185,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4dabb4cde57294c85fe31ddb248b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 10
+  currentHP: 10
   movementSpeed_Final: 0
   movementSpeed_Basic: 0.1
   movementSpeed_Ratio: 1
-  maxHP: 10
-  currentHP: 10
   meleeDamage_Final: 0
   meleeDamage_Basic: 1
   meleeDamage_Ratio: 1
+  rangeDamage_Final: 0
+  rangeDamage_Basic: 1
+  rangeDamage_Ratio: 1
   ShootInterval_Final: 0
   ShootInterval_Basic: 1
   ShootInterval_Ratio: 1
@@ -223,6 +213,7 @@ MonoBehaviour:
   canShoot: 0
   canAttack: 0
   Shooter: {fileID: 0}
+  UltraShooter: {fileID: 0}
   bullet_0: {fileID: 7155485969590187701, guid: f728ce6f3273e2c40b5d2d0525730f26, type: 3}
   bullet_1: {fileID: 7155485969590187701, guid: f728ce6f3273e2c40b5d2d0525730f26, type: 3}
   bullet_2: {fileID: 7155485969590187701, guid: f728ce6f3273e2c40b5d2d0525730f26, type: 3}

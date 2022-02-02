@@ -66,7 +66,6 @@ public class PlayerControl : CharacterControl
     // Start is called before the first frame update
     void Start()
     {
-        isAlive = true;
         keyText.text = "Key: " + KeyCounts;
         coinText.text = "Coin: " + CoinCounts;
     }
@@ -124,16 +123,20 @@ public class PlayerControl : CharacterControl
 
             if ((Input.GetMouseButton(0)) && (!Input.GetMouseButtonDown(1)))
             {
-                Shooter.GetComponent<Shooter>().enabled = true;
+                Shooter.enabled = false;
+                RageShooter.enabled = false;
+                Shooter.enabled = true;
+                RageShooter.enabled = true;
             }
             if (Input.GetMouseButtonDown(1))
             {
                 StartCoroutine(Attack());
             }
-            if (Input.GetKeyDown(KeyCode.E) && RangeLevel == 1)
+            if (Input.GetKeyDown(KeyCode.E) && RangeLevel >= 1)
             {
-                Shooter.GetComponent<UltraShooter>().enabled = true;
-                RangeLevel = 0;
+                UltraShooter.enabled = false;
+                UltraShooter.enabled = true;
+                RangeLevel -= 1;
                 RangeEnergy = 0;
                 RangeUltraText.SetActive(false);
                 }
@@ -151,20 +154,28 @@ public class PlayerControl : CharacterControl
         {
             Move(xInput, yInput);
         }
-        if (canDecrease == true)
+        if (canDecrease)
         {
             StartCoroutine(MeleeEnergyDecrease());
         }
         if (currentHP <= 0)
         {
-            isAlive = false;
-            isMoving = false;
-            canMove = false;
-            rb.velocity = new Vector3(0, 0, 0);
-            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
-            anim.SetInteger("State", 0);
-            anim.Play("Dead");
-            StartCoroutine(PlayerDead());
+            if(gameObject.GetComponent<Sakiro_Buff>() != null)
+            {
+                currentHP = maxHP / 2;
+                Destroy(gameObject.GetComponent<Sakiro_Buff>());
+            }
+            else
+            {
+                isAlive = false;
+                isMoving = false;
+                canMove = false;
+                rb.velocity = new Vector3(0, 0, 0);
+                gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+                anim.SetInteger("State", 0);
+                anim.Play("Dead");
+                StartCoroutine(PlayerDead());
+            }
         }
     }
     public IEnumerator Attack()
@@ -173,9 +184,9 @@ public class PlayerControl : CharacterControl
         {
             canAttack = false;
             AttackVector = (Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, -Camera.main.transform.position.z)) - gameObject.transform.position);
-            GetComponentInChildren<Shooter>().transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            GetComponentInChildren<Shooter>().transform.Rotate(0, 0, Angle_360(AttackVector));
-            GetComponentInChildren<Shooter>().GetComponentInChildren<Animator>().Play("Attack");
+            GetComponentInChildren<Shooter_Base>().transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            GetComponentInChildren<Shooter_Base>().transform.Rotate(0, 0, Angle_360(AttackVector));
+            GetComponentInChildren<Shooter_Base>().GetComponentInChildren<Animator>().Play("Attack");
             yield return new WaitForSeconds(AttackInterval_Final);
             canAttack = true;
         }

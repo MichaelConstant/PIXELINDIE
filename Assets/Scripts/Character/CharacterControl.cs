@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharacterControl : MonoBehaviour
 {
-    public int maxHP;
-    public int currentHP;
+    public float maxHP;
+    public float currentHP;
 
     [HideInInspector]
     public float movementSpeed_Final;
@@ -13,14 +13,14 @@ public class CharacterControl : MonoBehaviour
     public float movementSpeed_Ratio;
 
     [HideInInspector]
-    public int meleeDamage_Final;
-    public int meleeDamage_Basic;
-    public int meleeDamage_Ratio;
+    public float meleeDamage_Final;
+    public float meleeDamage_Basic;
+    public float meleeDamage_Ratio;
 
     [HideInInspector]
-    public int rangeDamage_Final;
-    public int rangeDamage_Basic;
-    public int rangeDamage_Ratio;
+    public float rangeDamage_Final;
+    public float rangeDamage_Basic;
+    public float rangeDamage_Ratio;
 
     [HideInInspector]
     public float ShootInterval_Final;
@@ -53,12 +53,16 @@ public class CharacterControl : MonoBehaviour
     public int yInput;
 
     [HideInInspector]
-    public bool canShoot;
+    public bool canShoot = true;
     [HideInInspector]
-    public bool canAttack;
+    public bool canAttack = true;
 
     [HideInInspector]
-    public Shooter Shooter;
+    public Shooter_Base Shooter;
+    [HideInInspector]
+    public RageShooter_Base RageShooter;
+    [HideInInspector]
+    public UltraShooter_Base UltraShooter;
 
     public GameObject bullet_0;
     public GameObject bullet_1;
@@ -72,12 +76,15 @@ public class CharacterControl : MonoBehaviour
 
     void Awake()
     {
-        canShoot = true;
-        canAttack = true;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        Shooter = GetComponentInChildren<Shooter>();
+        Shooter = GetComponentInChildren<Shooter_Base>();
+        RageShooter = GetComponentInChildren<RageShooter_Base>();
+        UltraShooter = GetComponentInChildren<UltraShooter_Base>();
+
+        canShoot = true;
+        canAttack = true;
 
         currentHP = maxHP;
         movementSpeed_Final = movementSpeed_Basic * movementSpeed_Ratio;
@@ -139,5 +146,13 @@ public class CharacterControl : MonoBehaviour
         collisionRB.AddForce((collisionRB.transform.position - gameObject.transform.position).normalized);
         yield return new WaitForSeconds(0.2f);
         Collision.GetComponent<PlayerControl>().canMove = true;
+        StartCoroutine(Invincible(Collision));
+
+    }
+    protected IEnumerator Invincible(GameObject Player)
+    {
+        Player.GetComponent<CapsuleCollider2D>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        Player.GetComponent<CapsuleCollider2D>().enabled = true;
     }
 }
